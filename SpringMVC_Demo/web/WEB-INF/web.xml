@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--配置SpringMVC前端控制器-->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--contextConfigLocation配置SpringMVC加载的配置文件
+        如果不配置contextConfigLocation，默认加载的是/WEB-INF/servlet名称-servlet.xml文件，
+        这里的话就会是springmvc-servlet.xml文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/springmvc.xml</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <!--url-pattern有多种配置方式：
+        1、*.action，表示访问以action结尾由DispatcherServlet进行解析
+        2、/，表示所有访问地址都由DispatcherServlet进行解析
+        3、/*，这种配置不建议采用，使用这种配置，最终要转发到一个jsp页面时，仍然会由DispatcherServlet
+        进行解析，但是并不能根据这个jsp找到对应的handler（controller），所以会报错-->
+        <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
